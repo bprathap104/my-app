@@ -8,13 +8,17 @@ images:
     tag: 13
     pullPolicy: IfNotPresent
   backend:
-    repository: bpratahp104/backend
+    repository: bpratahp104/backend-3-tier
     tag: latest
     pullPolicy: IfNotPresent
   frontend:
-    repository: bpratahp104/frontend
+    repository: bpratahp104/frontend-3-tier
     tag: latest
     pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  enabled: true
+  name: dockerhub-creds
 
 services:
   postgres:
