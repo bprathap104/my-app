@@ -16,10 +16,6 @@ images:
     tag: latest
     pullPolicy: IfNotPresent
 
-imagePullSecrets:
-  enabled: true
-  name: dockerhub-creds
-
 services:
   postgres:
     port: 5432
