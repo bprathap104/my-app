@@ -8,11 +8,11 @@ images:
     tag: 13
     pullPolicy: IfNotPresent
   backend:
-    repository: bpratahp104/backend-3-tier
+    repository: bprathap104/backend-3-tier
     tag: latest
     pullPolicy: IfNotPresent
   frontend:
-    repository: bpratahp104/frontend-3-tier
+    repository: bprathap104/frontend-3-tier
     tag: latest
     pullPolicy: IfNotPresent
 
