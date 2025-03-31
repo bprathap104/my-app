@@ -1,0 +1,39 @@
+replicaCount:
+  backend: 1
+  frontend: 1
+
+images:
+  postgres:
+    repository: postgres
+    tag: 13
+    pullPolicy: IfNotPresent
+  backend:
+    repository: bpratahp104/backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  frontend:
+    repository: bpratahp104/frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+
+services:
+  postgres:
+    port: 5432
+    targetPort: 5432
+    type: ClusterIP
+  backend:
+    port: 5000
+    targetPort: 5000
+    type: ClusterIP
+  frontend:
+    port: 3000
+    targetPort: 3000
+    type: ClusterIP
+
+postgres:
+  database: mydb
+  username: myuser
+  password: mypassword
+  initScript:
+    enabled: true
+    configMapName: postgres-init-script

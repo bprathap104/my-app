@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-postgres
+  labels:
+    app: {{ .Release.Name }}-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-postgres
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-postgres
+    spec:
+      containers:
+      - name: postgres
+        image: {{ .Values.images.postgres.repository }}:{{ .Values.images.postgres.tag }}
+        imagePullPolicy: {{ .Values.images.postgres.pullPolicy }}
+        env:
+        - name: POSTGRES_DB
+          value: {{ .Values.postgres.database }}
+        - name: POSTGRES_USER
+          value: {{ .Values.postgres.username }}
+        - name: POSTGRES_PASSWORD
+          value: {{ .Values.postgres.password }}
+        ports:
+        - containerPort: 5432
+        {{- if .Values.postgres.initScript.enabled }}
+        volumeMounts:
+        - name: init-script
+          mountPath: /docker-entrypoint-initdb.d
+        {{- end }}
+      {{- if .Values.postgres.initScript.enabled }}
+      volumes:
+      - name: init-script
+        configMap:
+          name: {{ .Values.postgres.initScript.configMapName }}
+      {{- end }}
